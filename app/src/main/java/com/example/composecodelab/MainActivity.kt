@@ -3,13 +3,21 @@ package com.example.composecodelab
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,12 +25,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composecodelab.ui.theme.ComposeCodelabTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    MainContainer()
+
                 }
             }
         }
@@ -42,94 +52,112 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainContainer(modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier.fillMaxSize()
+fun Container() {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(colorResource(id = R.color.quad1))
     ) {
-        Row(
+        MainSection(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
-        ) {
-            //1,2분할 영역
-            SectionText(
-                title = stringResource(id = R.string.quad1_title),
-                content = stringResource(id = R.string.quad1_content),
-                color = colorResource(id = R.color.quad1),
-                modifier = Modifier.weight(1f)
-            )
-            SectionText(
-                title = stringResource(id = R.string.quad2_title),
-                content = stringResource(id = R.string.quad2_content),
-                color = colorResource(id = R.color.quad2),
-                modifier = Modifier.weight(1f)
-            )
-        }
-        Row(
+                .fillMaxWidth()
+                .align(Alignment.Center)
+                .padding(bottom = 100.dp)
+        )
+        InfoSection(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
-        ) {
-            //3,4분할 영역
-            SectionText(
-                title = stringResource(id = R.string.quad3_title),
-                content = stringResource(id = R.string.quad3_content),
-                color = colorResource(id = R.color.quad3),
-                modifier = Modifier.weight(3f)
-            )
-            SectionText(
-                title = stringResource(id = R.string.quad4_title),
-                content = stringResource(id = R.string.quad4_content),
-                color = colorResource(id = R.color.quad4),
-                modifier = Modifier.weight(3f)
-            )
-        }
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 50.dp)
+        )
     }
 }
 
+
 @Composable
-fun SectionText(title: String, content: String, color: Color, modifier: Modifier = Modifier) {
+fun MainSection(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .fillMaxHeight()
-            .background(color)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.android_logo),
+            contentDescription = null,
+            modifier = Modifier
+                .width(150.dp)
+                .height(150.dp)
+                .align(Alignment.CenterHorizontally)
+        )
         Text(
-            text = title,
+            text = "ChanHyeok Park",
+            fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(bottom = 16.dp)
-                .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Justify
+                .fillMaxWidth()
+                .padding(8.dp)
         )
         Text(
-            text = content,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Justify
+            text = "Android Developer",
+            textAlign = TextAlign.Center,
+            fontSize = 16.sp,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
 
-
-@Preview(showBackground = true)
 @Composable
-fun MainContainerPreview() {
-    ComposeCodelabTheme {
-        MainContainer()
+fun InfoSection(modifier: Modifier = Modifier) {
+    val phone = Icons.Filled.Phone
+    val share = Icons.Filled.Share
+    val mail = Icons.Filled.MailOutline
+    Column(
+        modifier = modifier
+    ) {
+        InfoLine(
+            phone, "+11 (123) 444 555 666",
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        InfoLine(
+            share, "@chanhypark",
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        InfoLine(
+            mail, "chanhypark@velog.io",
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+    }
+}
+
+@Composable
+fun InfoLine(icons: ImageVector, content: String, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+    ) {
+        Icon(imageVector = icons, contentDescription = null, modifier.padding(end = 16.dp))
+        Text(text = content)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun SectionPreview() {
+fun ContainerPreview() {
     ComposeCodelabTheme {
-        SectionText(
-            title = "제목",
-            content = "내용 내용 내용 내용 내용 내용 내용 내용 ",
-            color = colorResource(id = R.color.quad1)
-        )
+        Container()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainSectionPreview() {
+    ComposeCodelabTheme {
+        MainSection()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun InfoSectionPreview() {
+    ComposeCodelabTheme {
+        InfoSection()
     }
 }
