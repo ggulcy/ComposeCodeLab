@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">ComposeCodelab</string>
-    <string name="title">All tasks completed</string>
-    <string name="description">Nice work!</string>
+    <string name="quad1_title">Text composable</string>
+    <string name="quad1_content">Displays text and follows the recommended Material Design guidelines.</string>
+    <string name="quad2_title">Image composable</string>
+    <string name="quad2_content">Creates a composable that lays out and draws a given Painter class object.</string>
+    <string name="quad3_title">Row composable</string>
+    <string name="quad3_content">A layout composable that places its children in a horizontal sequence.</string>
+    <string name="quad4_title">Column composable</string>
+    <string name="quad4_content">A layout composable that places its children in a vertical sequence.</string>
 </resources>
