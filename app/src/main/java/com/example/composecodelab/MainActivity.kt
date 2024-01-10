@@ -3,6 +3,7 @@ package com.example.composecodelab
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -172,7 +173,8 @@ fun InputField(
     )
 }
 
-fun calculateTip(amount: Double?, tipPercent: Double?, isRoundTip: Boolean): String {
+@VisibleForTesting
+internal fun calculateTip(amount: Double?, tipPercent: Double?, isRoundTip: Boolean): String {
     amount?.let { amount ->
         tipPercent?.let { tipPercent ->
             var tip = tipPercent / 100 * amount
