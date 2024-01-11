@@ -7,11 +7,15 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AffirmationList(
+                    AffirmationGrid(
                         list =
                         DataSource().loadAffirmations()
                     )
@@ -62,6 +66,22 @@ fun AffirmationList(
 }
 
 @Composable
+fun AffirmationGrid(
+    list: List<Affirmation>,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+        content = {
+            items(list) {
+                AffirmationCard(imgRes = it.imageRes, stringRes = it.stringRes)
+            }
+        }
+    )
+}
+
+@Composable
 fun AffirmationCard(
     @DrawableRes imgRes: Int,
     @StringRes stringRes: Int
@@ -76,7 +96,7 @@ fun AffirmationCard(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(194.dp),
+                    .height(120.dp),
                 contentScale = ContentScale.Crop,
             )
             Text(
@@ -92,7 +112,7 @@ fun AffirmationCard(
 @Composable
 fun AffirmationCardPreview() {
     ComposeCodelabTheme {
-        AffirmationList(
+        AffirmationGrid(
             list =
             DataSource().loadAffirmations()
         )
